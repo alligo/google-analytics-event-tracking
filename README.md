@@ -3,34 +3,65 @@ This is just simple way to add Event Tracking to your analitcs by just adding a
 few data atributes to the respective elements on the page, that work with
 lastest Google Analitcs.
 
-Follow (@fititnt)[https://twitter.com/fititnt] on Twitter or
-(@fititnt)[https://github.com/fititnt] on Github for updates
+Follow [@fititnt](https://twitter.com/fititnt) on Twitter or
+[@fititnt](https://github.com/fititnt) on Github for updates
 
 ## Examples
+Include file gaet.js (i.g `<script src="gaet.js"></script>`) on your HTML file. Does not
+need be at start of your document, so is best for your users add near `</body>` or
+load in a asyncronous way, and you will get a better score on Google Search
+
 
 ### Click to links
 
+@todo finish example
+
 #### Tracking Social Interaction
+This example show how to track share click on WhatsApp, Facebook and Twitter, without need
+of load bloated JS from theirs APIs and Slow down your site. Its ideal if you do not
+care about share count for Facebook (WhatsApp and Twitter do not have count)
+
 
 ```html
-    <div class="pleme-social-share-wp">
-        <h3 class="sr-only">Compartilhar evento</h3>
-        <a href="whatsapp://send?text={{ urlencode($evento->titulo . ' ' . Request::url()) }}"
-            title="Compartilhar no WhatsApp" target="_blank"
-            data-ga-event="click" data-ga-category="Evento/Comartilhar" data-ga-action="Compartilhou/WhatsApp" data-ga-label="Evento_{{ $evento->id }}_{{ $evento->slug }}">
-        <span class="pleme-icon-whatsapp" aria-hidden="true"></span>
-        </a>
-        <a href="https://www.facebook.com/sharer/sharer.php?p%5Burl%5D={{ urlencode(Request::url()) }}"
-            title="Compartilhar no Facebook" target="_blank"
-            data-ga-event="click" data-ga-category="Evento/Comartilhar" data-ga-action="Compartilhou/Facebook" data-ga-label="Evento_{{ $evento->id }}_{{ $evento->slug }}">
-        <span class="pleme-icon-facebook" aria-hidden="true"></span>
-        </a>
-        <a href="https://twitter.com/home?status={{ urlencode($evento->titulo . ' ' . Request::url()) }}"
-            title="Compartilhar no Twitter" target="_blank"
-            data-ga-event="click" data-ga-category="Evento/Comartilhar" data-ga-action="Compartilhou/Twitter" data-ga-label="Evento_{{ $evento->id }}_{{ $evento->slug }}">
-        <span class="pleme-icon-twitter" aria-hidden="true"></span>
-        </a>
-</div>
+<ul class="list-inline">
+<li>
+    <!--
+    For obvious reasons, share on WhatsApp only works on mobile that have WhatsApp installed
+    WhatsApp Web will not work by limitation of WhatsApp at present date
+    -->
+    <a href="whatsapp://send?text=I%27m+using+Google+Analytics+Event+Tracking+from+Alligo+https%3A%2F%2Fgithub.com%2Falligo%2Fgoogle-analytics-event-tracking"
+        title="Share on WhatsApp" target="_blank"
+        data-ga-event="click"
+        data-ga-category="GAET/Click/Share"
+        data-ga-action="SharedOn/WhatsApp"
+        data-ga-label="GAETexample"
+        >
+        <i class="fa fa-whatsapp" aria-hidden="true"></i> Share on WhatsApp
+    </a>
+</li>
+<li>
+    <a href="https://www.facebook.com/sharer/sharer.php?p%5Burl%5D=https%3A%2F%2Fgithub.com%2Falligo%2Fgoogle-analytics-event-tracking"
+    title="Share on Facebook" target="_blank"
+    data-ga-event="click"
+    data-ga-category="GAET/Click/Share"
+    data-ga-action="SharedOn/Facebook"
+    data-ga-label="GAETexample"
+    >
+    <i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook
+    </a>
+</li>
+<li>
+    <a href="https://twitter.com/home?status=I%27m+using+Google+Analytics+Event+Tracking+from+Alligo+https%3A%2F%2Fgithub.com%2Falligo%2Fgoogle-analytics-event-tracking"
+    title="Share on Twitter" target="_blank"
+    data-ga-event="click"
+    data-ga-category="GAET/Click/Share"
+    data-ga-action="SharedOn/Twitter"
+    data-ga-label="GAETexample"
+    >
+    <i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter
+    </a>
+</li>
+</ul>
 ```
 ### Submit a form
 
@@ -46,7 +77,7 @@ Follow (@fititnt)[https://twitter.com/fititnt] on Twitter or
 the htmls from localhost (file://) will not work well for testing
 
 # How to debug?
-I would recomend you to install [Google Analytics Debugger)[https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna]
+I would recomend you to install [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna)
 
 
 ## More information

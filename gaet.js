@@ -1,3 +1,9 @@
+/**!
+ * Google Analytics Event Tracking - Alligo Helper
+ * @author Emerson Rocha Luiz <emerson at alligo.com.br
+ * @see https://github.com/alligo/google-analytics-event-tracking
+ */
+
 /* global: google, Pleme */
 
 /* global Pleme */
@@ -9,8 +15,8 @@
 
   /**
    * Prepara para enviar eventos ao Google Analytics
-   * 
-   * @example 
+   *
+   * @example
    * <form
    *      data-ga-event="click"
    *      data-ga-category="Evento/Comartilhar"
@@ -52,7 +58,7 @@
    * enviados se não interromper a ação. Essa rotina atrasa o evento padrão
    * para aguardar retorno do Google Analycs, e em 1000ms executa a ação mesmo
    * que o servidores do Google tenham erro.
-   * 
+   *
    * @see Pleme.GA.prepareEvents()
    *
    * @param {DOMElement} el
