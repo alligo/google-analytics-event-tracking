@@ -6,9 +6,13 @@
 
 /* global: google */
 
+if (window.GAET) {
+  console.log('WARNING! GAET loaded more than once');
+}
+
 (function ($, window) {
   window.GAET = window.GAET || {};
-  GAET.debug = false;
+  GAET.debug = window.GAETDebug || false;
   GAET.maxwait = 1000;
 
   /**
@@ -24,29 +28,44 @@
    */
   GAET.prepareEvents = function () {
     var els = $('[data-ga-event]');
+    //GAET.debug && console.log('window.GAET.prepareEvents', els);
     $.each(els, function (index, value) {
-      GAET.debug && console.log('window.GAET.prepareEvents', els);
       var el = $(this),
-              evEvent = $(this).data('ga-event'),
-              evCat = $(this).data('ga-category') || '',
-              evAct = $(this).data('ga-action') || '',
-              evLab = $(this).data('ga-label') || '',
-              evVal = $(this).data('ga-value') || '';
+        evEvent = $(this).data('ga-event'),
+        evCat = $(this).data('ga-category') || '',
+        evAct = $(this).data('ga-action') || '',
+        evLab = $(this).data('ga-label') || '',
+        evVal = $(this).data('ga-value') || undefined;
 
-      $(this).on(evEvent, function (elEvent) {
-        GAET.debug && console.log('window.GAET.prepareEvents', evCat, evAct, evLab, evVal);
-        if (evEvent === 'click' || evEvent === 'submit') {
-          if (!el.data('ga-done')) {
-            GAET.prepareEventWait(el, elEvent, evEvent, evCat, evAct, evLab, evVal);
-          }
-        } else {
-          try {
-            ga('send', 'event', evCat, evAct, evLab, evVal);
-          } catch (e) {
-            console.log('GAET.prepareEvents Exception', e);
-          }
+      GAET.debug && console.log('window.GAET.prepareEvents prepared', evEvent, evCat, evAct, evLab, evVal, el);
+
+      // Check if os a event that run immediately
+      if (evEvent === 'load' || evEvent === 'ready') {
+        try {
+          GAET.debug && console.log('window.GAET.prepareEvents FIRED!', evEvent, evCat, evAct, evLab, evVal, el);
+          ga('send', 'event', evCat, evAct, evLab, evVal);
+        } catch (e) {
+          console.log('GAET.prepareEvents Exception', e);
         }
-      });
+      } else {
+
+        // Is a normal DOM event. Run it
+        $(this).on(evEvent, function (elEvent) {
+          //GAET.debug && console.log('window.GAET.prepareEvents', evEvent, evCat, evAct, evLab, evVal);
+          GAET.debug && console.log('window.GAET.prepareEvents FIRED!', evEvent, evCat, evAct, evLab, evVal, el);
+          if (evEvent === 'click' || evEvent === 'submit') {
+            if (!el.data('ga-done')) {
+              GAET.prepareEventWait(el, elEvent, evEvent, evCat, evAct, evLab, evVal);
+            }
+          } else {
+            try {
+              ga('send', 'event', evCat, evAct, evLab, evVal);
+            } catch (e) {
+              console.log('GAET.prepareEvents Exception', e);
+            }
+          }
+        });
+      }
     });
 
   };
@@ -110,8 +129,8 @@
         eventLabel: evLab,
         eventValue: evVal || undefined
       }, {
-        hitCallback: fnDestino
-      });
+          hitCallback: fnDestino
+        });
     } catch (e) {
       console.log('GAET.prepareEventWait Exception', e);
     }

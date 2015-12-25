@@ -18,7 +18,14 @@
         data-ga-action="LinkClick/ExternalUrl"
         data-ga-label="fititnt.org"
         data-ga-value="500"
-      >Visit fititnt.org website</a>
+      >Visit fititnt.org website (new page)</a>
+       .
+      <a href="http://www.fititnt.org/?utm_source=gaet&utm_medium=github&utm_campaign=gaet"
+        data-ga-category="GAET/Click/SimpleLink"
+        data-ga-action="LinkClick/ExternalUrl"
+        data-ga-label="alligo.com.br"
+        data-ga-value="500"
+      >Visit alligo.com.br website (same page)</a>
       <h2 class="">Example - Click link - Share on Social Media</h2>
       <ul class="list-inline">
         <li>
@@ -67,7 +74,7 @@
             data-ga-label="GAETexample"
             >
         <button type="submit" class="btn btn-lg btn-success btn-block">Form with Method GET</button>
-        </form>
+      </form>
       <form method="POST" action=""
             data-ga-event="submit"
             data-ga-category="GAET/Submit"
@@ -75,7 +82,15 @@
             data-ga-label="GAETexample"
             >
         <button type="submit" class="btn btn-lg btn-success btn-block">Form with Method POST</button>
-        </form>
+      </form>
+      <h2 class="">Example - Automatic execute when a page is loaded</h2>
+      <p>Please see source code to see this example</p>
+      <div
+          data-ga-event="ready"
+          data-ga-category="GAET/Pageview"
+          data-ga-action="PageView"
+          data-ga-label="GAETexample">
+      </div>
     </div>
     <hr />
     <h2>How Google Analytics will show results</h2>
@@ -94,8 +109,12 @@
       ga('send', 'pageview');
   </script>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <!--<script src="../src/gaet.js"></script>-->
-  <script src="../dist/gaet.min.js"></script>
+  <script>
+    // Debug enabled
+    window.GAETDebug = true;
+  </script>
+  <script src="../src/gaet.js"></script>
+  <!--<script src="../dist/gaet.min.js"></script>-->
 </body>
 
 </html>

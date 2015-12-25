@@ -86,14 +86,30 @@ care about share count for Facebook (WhatsApp and Twitter do not have count)
 ```
 ### Submit a form
 
-@todo finish example
-
+```html
+<form method="GET" action=""
+    data-ga-event="submit"
+    data-ga-category="GAET/Submit"
+    data-ga-action="FormSubmittedWithMethodGET"
+    data-ga-label="GAETexample"
+    >
+<button type="submit" class="btn btn-lg btn-success btn-block">Form with Method GET</button>
+</form>
+<form method="POST" action=""
+    data-ga-event="submit"
+    data-ga-category="GAET/Submit"
+    data-ga-action="FormSubmittedWithMethodPOST"
+    data-ga-label="GAETexample"
+    >
+<button type="submit" class="btn btn-lg btn-success btn-block">Form with Method POST</button>
+</form>
+```
 ### Page visualization
 
 @todo finish example
 
 ## Requirements
-- **Requires Google analytics.js (ga). Old one (_gac) will NOT work**
+- **Requires Google analytics.js (ga). Old one (_gaq) will NOT work**
 - (**Only for debug**) install [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna)
 - (**Only for testing**) It is best use a localhost or remote http or https URL. Just open
 the htmls from localhost (file://) will not work well for testing
