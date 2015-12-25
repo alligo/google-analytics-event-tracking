@@ -1,0 +1,28 @@
+{
+  "name": "google-analytics-event-tracking",
+  "version": "0.5.0",
+  "description": "This is just simple way to add Event Tracking to your analitcs by just adding a few data atributes to the respective elements on the page, that work with lastest Google Analitcs.",
+  "main": "gaet.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alligo/google-analytics-event-tracking.git"
+  },
+  "author": "Emerson Rocha Luiz <emerson at alligo.com.br>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alligo/google-analytics-event-tracking/issues"
+  },
+  "homepage": "https://github.com/alligo/google-analytics-event-tracking#readme"
+}

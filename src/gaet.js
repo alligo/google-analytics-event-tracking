@@ -4,14 +4,12 @@
  * @see https://github.com/alligo/google-analytics-event-tracking
  */
 
-/* global: google, Pleme */
-
-/* global Pleme */
+/* global: google */
 
 (function ($, window) {
-  window.Pleme = window.Pleme || {};
-  window.Pleme.GA = {};
-  Pleme.debug = false;
+  window.GAET = window.GAET || {};
+  GAET.debug = false;
+  GAET.maxwait = 1000;
 
   /**
    * Prepara para enviar eventos ao Google Analytics
@@ -24,10 +22,10 @@
    *      data-ga-label="Evento_7_lorem-ipsum"
    * ></form>
    */
-  Pleme.GA.prepareEvents = function () {
+  GAET.prepareEvents = function () {
     var els = $('[data-ga-event]');
     $.each(els, function (index, value) {
-      Pleme.debug && console.log('window.Pleme.GA.prepareEvents', els);
+      GAET.debug && console.log('window.GAET.prepareEvents', els);
       var el = $(this),
               evEvent = $(this).data('ga-event'),
               evCat = $(this).data('ga-category') || '',
@@ -36,16 +34,16 @@
               evVal = $(this).data('ga-value') || '';
 
       $(this).on(evEvent, function (elEvent) {
-        Pleme.debug && console.log('window.Pleme.GA.prepareEvents', evCat, evAct, evLab, evVal);
+        GAET.debug && console.log('window.GAET.prepareEvents', evCat, evAct, evLab, evVal);
         if (evEvent === 'click' || evEvent === 'submit') {
           if (!el.data('ga-done')) {
-            Pleme.GA.prepareEventWait(el, elEvent, evEvent, evCat, evAct, evLab, evVal);
+            GAET.prepareEventWait(el, elEvent, evEvent, evCat, evAct, evLab, evVal);
           }
         } else {
           try {
             ga('send', 'event', evCat, evAct, evLab, evVal);
           } catch (e) {
-            console.log('Pleme.GA.prepareEvents Exception', e);
+            console.log('GAET.prepareEvents Exception', e);
           }
         }
       });
@@ -59,7 +57,7 @@
    * para aguardar retorno do Google Analycs, e em 1000ms executa a ação mesmo
    * que o servidores do Google tenham erro.
    *
-   * @see Pleme.GA.prepareEvents()
+   * @see GAET.prepareEvents()
    *
    * @param {DOMElement} el
    * @param {Event}      elEvent
@@ -68,9 +66,9 @@
    * @param {String}     evAct
    * @param {String}     evLab
    * @param {String}     [evVal]
-   * @returns {Pleme.GA.prepareEventWait}
+   * @returns {GAET.prepareEventWait}
    */
-  Pleme.GA.prepareEventWait = function (el, elEvent, evEvent, evCat, evAct, evLab, evVal) {
+  GAET.prepareEventWait = function (el, elEvent, evEvent, evCat, evAct, evLab, evVal) {
     var fnDestinoDone = false, fnDestino;
 
     elEvent.preventDefault();
@@ -97,12 +95,12 @@
       } else if (evEvent === 'submit') {
         $(el)[0].submit();
       } else {
-        console.log('Pleme.GA.prepareEventWait: evento desconhecido', el, evEvent);
+        console.log('GAET.prepareEventWait: evento desconhecido', el, evEvent);
       }
     };
 
     // Se por algum motivo GA demorar para responder, redirecionar sem esperar
-    setTimeout(fnDestino, 1000);
+    setTimeout(fnDestino, GAET.maxwait);
 
     try {
       ga('send', {
@@ -115,24 +113,20 @@
         hitCallback: fnDestino
       });
     } catch (e) {
-      console.log('Pleme.GA.prepareEventWait Exception', e);
+      console.log('GAET.prepareEventWait Exception', e);
     }
   };
 
   /**
    * Inicia todos os eventos do Google Analytics
    */
-  Pleme.GA.initAll = function () {
+  GAET.initAll = function () {
     $(document).ready(function () {
-      Pleme.debug && console.log('Pleme.GA.initAll');
-      Pleme.GA.prepareEvents();
+      GAET.debug && console.log('GAET.initAll');
+      GAET.prepareEvents();
     });
   };
   //...
 })(jQuery, window);
 
-Pleme.GA.initAll();
-
-jQuery('.pleme-form-delete').on('submit', function () {
-  return confirm("Tem certeza que quer REMOVER isto?");
-});
+GAET.initAll();
