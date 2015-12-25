@@ -12,6 +12,13 @@
   <div class="container">
   <h1>Google Analytics Event Tracking - Alligo Helper</h1>
     <div class="">
+      <h2 class="">Example - Click link - Simple</h2>
+      <a href="http://www.fititnt.org/?utm_source=gaet&utm_medium=github&utm_campaign=gaet" target="_blank"
+        data-ga-category="GAET/Click/SimpleLink"
+        data-ga-action="LinkClick/ExternalUrl"
+        data-ga-label="fititnt.org"
+        data-ga-value="500"
+      >Visit fititnt.org website</a>
       <h2 class="">Example - Click link - Share on Social Media</h2>
       <ul class="list-inline">
         <li>
@@ -52,6 +59,23 @@
           </a>
         </li>
       </ul>
+      <h2 class="">Example - Form submit</h2>
+      <form method="GET" action=""
+            data-ga-event="submit"
+            data-ga-category="GAET/Submit"
+            data-ga-action="FormSubmittedWithMethodGET"
+            data-ga-label="GAETexample"
+            >
+        <button type="submit" class="btn btn-lg btn-success btn-block">Form with Method GET</button>
+        </form>
+      <form method="POST" action=""
+            data-ga-event="submit"
+            data-ga-category="GAET/Submit"
+            data-ga-action="FormSubmittedWithMethodPOST"
+            data-ga-label="GAETexample"
+            >
+        <button type="submit" class="btn btn-lg btn-success btn-block">Form with Method POST</button>
+        </form>
     </div>
     <hr />
     <h2>How Google Analytics will show results</h2>
