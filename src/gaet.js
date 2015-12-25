@@ -13,7 +13,7 @@ if (window.GAET) {
 (function ($, window) {
   window.GAET = window.GAET || {};
   GAET.debug = window.GAETDebug || false;
-  GAET.maxwait = 1000;
+  GAET.maxwait  = window.GAETMaxwait || 1000;
 
   /**
    * Prepara para enviar eventos ao Google Analytics
@@ -35,9 +35,18 @@ if (window.GAET) {
         evCat = $(this).data('ga-category') || '',
         evAct = $(this).data('ga-action') || '',
         evLab = $(this).data('ga-label') || '',
-        evVal = $(this).data('ga-value') || undefined;
+        evVal = $(this).data('ga-value') || undefined,
+        evAdded = $(this).data('ga-gaet') || false;
+
+      if (evAdded) {
+        // Do not add 2 times event for the same element
+        // Mark this element as already processed by GAET
+        GAET.debug && console.log('window.GAET.prepareEvents skipping', el, evAdded);
+        return true;
+      }
 
       GAET.debug && console.log('window.GAET.prepareEvents prepared', evEvent, evCat, evAct, evLab, evVal, el);
+      el.data('ga-gaet', 1);
 
       // Check if os a event that run immediately
       if (evEvent === 'load' || evEvent === 'ready') {
