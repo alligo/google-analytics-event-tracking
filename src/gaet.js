@@ -14,6 +14,7 @@ if (window.GAET) {
   window.GAET = window.GAET || {};
   GAET.debug = window.GAETDebug || false;
   GAET.maxwait  = window.GAETMaxwait || 1000;
+  GAET.version = 'v0.5.1';
 
   /**
    * Prepara para enviar eventos ao Google Analytics
@@ -28,7 +29,7 @@ if (window.GAET) {
    */
   GAET.prepareEvents = function () {
     var els = $('[data-ga-event]');
-    //GAET.debug && console.log('window.GAET.prepareEvents', els);
+
     $.each(els, function (index, value) {
       var el = $(this),
         evEvent = $(this).data('ga-event'),
@@ -109,11 +110,8 @@ if (window.GAET) {
         $(el).data('ga-done', 1);
         fnDestinoDone = true;
       }
-      //
       if (evEvent === 'click') {
-        //
         if (elEvent.target.getAttribute("target") === '_blank') {
-          //alert('fnDestino remoto3');
           elEvent.target.click();
           return true;
         } else {
@@ -127,7 +125,7 @@ if (window.GAET) {
       }
     };
 
-    // Se por algum motivo GA demorar para responder, redirecionar sem esperar
+    // If for some reason GA take too much time, abort and continue
     setTimeout(fnDestino, GAET.maxwait);
 
     try {
@@ -146,12 +144,19 @@ if (window.GAET) {
   };
 
   /**
-   * Inicia todos os eventos do Google Analytics
+   * Init all
    */
   GAET.initAll = function () {
     $(document).ready(function () {
-      GAET.debug && console.log('GAET.initAll');
-      GAET.prepareEvents();
+      if (!!ga) {
+        GAET.debug && console.log('GAET.initAll');
+        GAET.prepareEvents();
+      } else {
+        console.log('GAET: Google analytics.js (ga) not loaded. Aborting');
+      }
+      if (!!_gaq) {
+        console.log('GAET: Old Google analytics (_gaq) loaded. Please use only new ga');
+      }
     });
   };
   //...

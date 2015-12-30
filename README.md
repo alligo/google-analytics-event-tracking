@@ -1,4 +1,6 @@
-# Google Analytics Event Tracking - Alligo Helper - v0.5beta
+# Google Analytics Event Tracking JS Library from Alligo - v0.5.1
+**< 1kb gziped, minimalistic, unobtrusive Javascript library**
+
 This is just simple way to add Event Tracking to your analitcs by just adding a
 few data atributes to the respective elements on the page, that work with
 lastest Google Analitcs.
@@ -17,7 +19,7 @@ form submit) to happen. So, will **not break your site** if GA is offline
 Follow [@fititnt](https://twitter.com/fititnt) on Twitter or
 [@fititnt](https://github.com/fititnt) on Github for updates
 
-<img src="https://raw.githubusercontent.com/alligo/google-analytics-event-tracking/master/examples/social-media-events.png" alt="How Google Analytics will show results"/>
+<img src="https://raw.githubusercontent.com/alligo/google-analytics-event-tracking/master/examples/events.png" alt="How Google Analytics will show results"/>
 
 ## Examples
 Include file gaet.js (i.g `<script src="gaet.js"></script>`) on your HTML file. Does not
@@ -30,11 +32,12 @@ For a full example, look at folder examples/ on this repository
 
 ```html
 <a href="http://www.fititnt.org/?utm_source=gaet&utm_medium=github&utm_campaign=gaet" target="_blank"
+  data-ga-event="click"
   data-ga-category="GAET/Click/SimpleLink"
   data-ga-action="LinkClick/ExternalUrl"
   data-ga-label="fititnt.org"
-  data-ga-value="500"
->Visit fititnt.org website</a>
+  data-ga-value="510"
+>Visit fititnt.org website (new page)</a>
 ```
 
 #### Tracking Social Interaction
@@ -106,13 +109,24 @@ care about share count for Facebook (WhatsApp and Twitter do not have count)
 ```
 ### Page visualization
 
-@todo finish example
-
+```html
+<div
+    data-ga-event="ready"
+    data-ga-category="GAET/Pageview"
+    data-ga-action="PageView"
+    data-ga-label="GAETexample">
+</div>
+```
 ## Requirements
 - **Requires Google analytics.js (ga). Old one (_gaq) will NOT work**
 - (**Only for debug**) install [Google Analytics Debugger](https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna)
 - (**Only for testing**) It is best use a localhost or remote http or https URL. Just open
 the htmls from localhost (file://) will not work well for testing
+
+## Who more uses this library as dependency?
+
+This library is used by [Joomla CMS module extension mod_banners4varnish](https://github.com/alligo/mod_banners4varnish)
+and [Joomla CMS content plugin for Tracking impressions of articles with Google Analytics Event Tracking](https://github.com/alligo/plg_content_google-analytics-event-tracking)
 
 ## More information
 See https://developers.google.com/analytics/devguides/collection/analyticsjs/events
